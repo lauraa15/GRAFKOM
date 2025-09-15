@@ -21,6 +21,18 @@
         cnv = document.querySelector("#canvas1");
         // console.log(cnv);
 
+        // Bikin function buat gambar garis
+        function gambar_titik(imageData,x,y,r,g,b){
+            // rumus::: index = 4 * (x +(y * image_width)) 
+            var index;
+            index = 4 * (x +(y * cnv.width)) 
+
+            imageData.data[index]  =r;  //Red
+            imageData.data[index+1]=g;// Green
+            imageData.data[index+2]=b;// Blue
+            imageData.data[index+3]=255;// Alpha / transparency
+        }
+
         // 2. create context
         var context1;
         context1 = cnv.getContext("2d");
@@ -29,21 +41,16 @@
         var imageData = context1.getImageData(0,0,cnv.width,cnv.height);
 
         // 4. Penggunaan array 4*image_width dlm kode
-        var x,y;
+        // var x,y;
 
         // misal mau ambil titik yang 100,100
-        x=100;
-        y=100;
+        // x=100;
+        // y=100;
 
-        // rumus::: index = 4 * (x +(y * image_width)) 
-        var index;
-        index = 4 * (x +(y * cnv.width)) 
-        
-        imageData.data[index]  =255;  //Red
-        imageData.data[index+1]=0;// Green
-        imageData.data[index+2]=0;// Blue
-        imageData.data[index+3]=255;// Alpha / transparency
-        
+        for (let index = 0; index < 100; index++) {
+            gambar_titik(imageData,100+index,100,255,0,0)
+            // gambar_titik(imageData,100,100+index,255,0,0)
+        }
 
         // naro grafis ke context ke canvas
         context1.putImageData(imageData,0,0);
