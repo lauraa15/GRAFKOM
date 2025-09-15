@@ -18,7 +18,12 @@
     <script>
         var cnv;
         cnv = document.querySelector("#canvas1");
-        console.log(cnv);
+        // console.log(cnv);
+        var context1;
+        context1 = cnv.getContext("2d");
+        context1.fillRect(100,250,250,200);
+        var imageData = context1.getImageData(0,0,cnv.width,cnv.height);
+        context1.putImageData(imageData,100,100);
 
     </script>
 </body>
