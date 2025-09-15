@@ -15,57 +15,9 @@
     
 
     <!-- Taro script di bawah canvas -->
-    <script>
-        // 1. create canvas
-        var cnv;
-        cnv = document.querySelector("#canvas1");
-        // console.log(cnv);
-
-        // Bikin function buat gambar garis
-        function gambar_titik(imageData,x,y,r,g,b){
-            // rumus::: index = 4 * (x +(y * image_width)) 
-            var index;
-            index = 4 * (x +(y * cnv.width)) 
-
-            imageData.data[index]  =r;  //Red
-            imageData.data[index+1]=g;// Green
-            imageData.data[index+2]=b;// Blue
-            imageData.data[index+3]=255;// Alpha / transparency
-        }
-
-        // 2. create context
-        var context1;
-        context1 = cnv.getContext("2d");
-        
-        // 3. image datanya
-        var imageData = context1.getImageData(0,0,cnv.width,cnv.height);
-
-        // 4. Penggunaan array 4*image_width dlm kode
-        // var x,y;
-
-        // misal mau ambil titik yang 100,100
-        // x=100;
-        // y=100;
-
-        for (let j = 0; j < 100; j++) {
-            for (var i = 0; i < 100; i++) {
-                gambar_titik(imageData,100+i,100+j,255-j,0,0);
-            }    
-        }
-
-        for (var i = 0; i < 100; i++) {
-            // gambar_titik(imageData,100+i,100,255,0,0);
-            // gambar_titik(imageData,100,100+i,255,0,0);
-            // gambar_titik(imageData,i,i,255,0,0);
-            // gambar_titik(imageData,100+i,100,255,0,0);
-            // gambar_titik(imageData,100,100+i,255,0,0);
-            // gambar_titik(imageData,100+i,200,0,0,255);
-            // gambar_titik(imageData,200,100+i,0,0,255);
-            
-        }
-
-        // naro grafis ke context ke canvas
-        context1.putImageData(imageData,0,0);
-    </script>
+    <script src="canvas.js"></script>
+    <!-- <script type="module" src="">
+        import * as Example from ".canvas.js";
+    </script> -->
 </body>
 </html>
