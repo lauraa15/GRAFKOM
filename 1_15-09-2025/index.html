@@ -47,14 +47,20 @@
         // x=100;
         // y=100;
 
-        for (let index = 0; index < 100; index++) {
-            // gambar_titik(imageData,100+index,100,255,0,0)
-            // gambar_titik(imageData,100,100+index,255,0,0)
-            // gambar_titik(imageData,index,index,255,0,0)
-            gambar_titik(imageData,100+index,100,255,0,0)
-            gambar_titik(imageData,100,100+index,255,0,0)
-            gambar_titik(imageData,100+index,200,0,0,255)
-            gambar_titik(imageData,200,100+index,0,0,255)
+        for (let j = 0; j < 5; j++) {
+            for (var i = 0; i < 100; i++) {
+                gambar_titik(imageData,100+i,100+j,255,0,0)
+            }    
+        }
+
+        for (var i = 0; i < 100; i++) {
+            // gambar_titik(imageData,100+i,100,255,0,0)
+            // gambar_titik(imageData,100,100+i,255,0,0)
+            // gambar_titik(imageData,i,i,255,0,0)
+            // gambar_titik(imageData,100+i,100,255,0,0)
+            // gambar_titik(imageData,100,100+i,255,0,0)
+            // gambar_titik(imageData,100+i,200,0,0,255)
+            // gambar_titik(imageData,200,100+i,0,0,255)
             
         }
 
