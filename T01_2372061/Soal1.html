@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soal1-2372061_Laura</title>
+    <style>
+        *{
+            text-align: center;
+        }
+        canvas{
+            border: 5px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h1>1. Buatlah sebuah fungsi titik</h1>
+
+    <canvas id="canvas1" width="500" height="500"></canvas>
+
+    <script>
+        var cnv;
+        cnv = document.querySelector("#canvas1");
+        console.log(cnv)
+        
+        function gambar_titik(imageData, x, y, r, g, b){
+            var index;
+            index = 4*(x+(y*cnv.width));
+
+            imageData.data[index]   = r;
+            imageData.data[index+1] = g;
+            imageData.data[index+2] = b;
+            imageData.data[index+3] = 255;
+        }
+
+        var ctx;
+        ctx = cnv.getContext("2d");
+
+        var imageData;
+        imageData = ctx.getImageData(0,0,cnv.width, cnv.height);
+
+        gambar_titik(imageData,250,250,255,0,0);
+
+        ctx.putImageData(imageData,0,0);
+        
+    </script>
+</body>
+</html>

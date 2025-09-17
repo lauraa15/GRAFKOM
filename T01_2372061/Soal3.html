@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soal3-2372061_Laura</title>
+    <style>
+        *{
+            text-align: center;
+        }
+        #canvas3{
+            border: 5px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h1>3. Buatlah sebuah kotak kosong</h1>
+    <canvas id="canvas3" width="500" height="500"></canvas>
+
+    <script>
+        var cnv3 = document.querySelector("#canvas3");
+        var ctx3 = cnv3.getContext("2d");
+        var imageData = ctx3.getImageData(0,0,cnv3.width,cnv3.height);
+
+        function buat_titik(imageData,x,y,r,g,b){
+            var index = 4*(x+(y*cnv3.width))
+
+            imageData.data[index]   = r;
+            imageData.data[index+1] = g;
+            imageData.data[index+2] = b;
+            imageData.data[index+3] = 255;
+        }
+
+        for (let a = 0; a < 200; a++) {
+            buat_titik(imageData,150,150+a,210,0,100);
+            buat_titik(imageData,150+a,150,210,0,100);
+            buat_titik(imageData,350,150+a,210,0,100);
+            buat_titik(imageData,150+a,350,210,0,100);
+        }
+
+
+        ctx3.putImageData(imageData,0,0);
+    </script>
+</body>
+</html>

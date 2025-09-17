@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soal2-2372061_Laura</title>
+    <style>
+        *{
+            text-align: center;
+        }
+        #canvas2{
+            border: 5px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h1>2. Buatlah sebuah kotak isi</h1>
+    <canvas id="canvas2" width="500" height="500"></canvas>
+
+    <script>
+        var cnv2;
+        cnv2 = document.querySelector("#canvas2");
+        console.log(cnv2)
+        
+        var ctx2;
+        ctx2 = cnv2.getContext("2d");
+        
+        var imageData;
+        imageData = ctx2.getImageData(0,0,cnv2.width, cnv2.height);
+        
+        
+        function gambar_titik(imageData, x, y, r, g, b){
+            var index;
+            index = 4*(x+(y*cnv2.width));
+
+            imageData.data[index]   = r;
+            imageData.data[index+1] = g;
+            imageData.data[index+2] = b;
+            imageData.data[index+3] = 255;
+        }
+        
+        for (let b = 0; b < 150; b++) {
+            for (let a = 0; a < 150; a++) {
+                gambar_titik(imageData,150+a,150+b,120,200,255);
+            }
+        }
+
+        ctx2.putImageData(imageData,0,0);
+        
+    </script>
+</body>
+</html>
