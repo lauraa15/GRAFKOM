@@ -15,6 +15,7 @@
 </head>
 <body>
     <h1>6. Buatlah apabila layar di klik keluar titik</h1>
+    <h3>klik bagian canvas</h3>
     <canvas id="canvas6" width="500" height="500"></canvas>
     <script>
         var cnv6 = document.querySelector("#canvas6");
@@ -30,11 +31,17 @@
         }
 
         cnv6.addEventListener("click", function(){
-            var xrand = Math.random()*100;
-            var yrand = Math.random()*100;
+            var xrand = Math.round(Math.random()*500);
+            var yrand = Math.round(Math.random()*500);
+            console.log("Titik yang baru diklik: ",xrand,yrand);
             buat_titik(imageData, xrand, yrand, 255,0,0);
             ctx6.putImageData(imageData,0,0);
+
         })
+        // console.log(Math.round(3.14))
+        // buat_titik(imageData,100,100,255,0,0)
+        // ctx6.putImageData(imageData,0,0);
+        // AKKKKKKK JADIIIII 
 
     </script>
 </body>
