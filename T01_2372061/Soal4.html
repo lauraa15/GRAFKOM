@@ -4,8 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Soal4-2372061_Laura</title>
+    <style>
+        *{
+            text-align: center;
+        }
+        #canvas4{
+            border: 5px solid black;
+        }
+    </style>
 </head>
 <body>
-    
+    <h1>4. Buatlah sebuah segitiga kosong</h1>
+
+    <canvas id="canvas4" width="500" height="500"></canvas>
+
+    <script>
+        var cnv4 = document.querySelector("#canvas4");
+        var ctx4 = cnv4.getContext("2d");
+        var imageData = ctx4.getImageData(0,0,cnv4.width,cnv4.height);
+
+        function titik(imageData,x,y,r,g,b){
+            var index = 4*(x+(y*cnv4.width));
+
+            imageData.data[index] = r;
+            imageData.data[index+1] = g;
+            imageData.data[index+2] = b;
+            imageData.data[index+3] = 255;
+        }
+        
+        for (let a = 0; a < 100; a++) {
+            titik(imageData,250+a,200+a,100,255,40);
+            titik(imageData,250-a,200+a,100,255,40);
+            titik(imageData,250-a,300,100,255,40);
+            titik(imageData,250+a,300,100,255,40);
+        }
+
+        ctx4.putImageData(imageData,0,0);
+    </script>
+
+
 </body>
 </html>

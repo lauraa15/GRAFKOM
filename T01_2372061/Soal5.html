@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soal5-2372061_Laura</title>
+    <style>
+        *{
+            text-align: center;
+        }
+        #canvas5{
+            border: 5px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h1>5. Buatlah sebuah kotak dengan warna gradient</h1>
+    
+    <canvas id="canvas5" width="500" height="500"></canvas>
+
+    <script>
+        var cnv5 = document.querySelector("#canvas5");
+        var ctx5 = cnv5.getContext("2d");
+        var imageData = ctx5.getImageData(0,0,cnv5.width, cnv5.height);
+        
+        function titik(imageData, x, y, r, g, b){
+            var index = 4*(x+(y*cnv5.width))
+
+            imageData.data[index] = r;
+            imageData.data[index+1] = g;
+            imageData.data[index+2] = b;
+            imageData.data[index+3] = 255;
+        }
+        for (let a = 0; a < 120; a++) {
+            for (let b = 0; b < 120; b++) {
+                //buat fill warna gradient
+                titik(imageData,150+a,150+b,120+a,200-b,255);
+
+                //buat outline biar lebi bagus
+                titik(imageData,150+a,150,0,0,255);
+                titik(imageData,150,150+b,0,0,255);
+                titik(imageData,270,150+b,0,0,255);
+                titik(imageData,150+a,270,0,0,255);
+
+            }
+            
+        }
+
+        ctx5.putImageData(imageData,0,0);
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soal6-2372061_Laura</title>
+    <style>
+        *{
+            text-align: center;
+        }
+        #canvas6{
+            border: 5px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h1>6. Buatlah apabila layar di klik keluar titik</h1>
+    <canvas id="canvas6" width="500" height="500"></canvas>
+    <script>
+        var cnv6 = document.querySelector("#canvas6");
+        var ctx6 = cnv6.getContext("2d");
+        var imageData = ctx6.getImageData(0,0,cnv6.width,cnv6.height);
+
+        function buat_titik(imageData, x, y, r, g, b){
+            var index = 4*(x+(y*cnv6.width));
+            imageData.data[index] = r;
+            imageData.data[index+1] = g;
+            imageData.data[index+2] = b;
+            imageData.data[index+3] = 255;
+        }
+
+        cnv6.addEventListener("click", function(){
+            var xrand = Math.random()*100;
+            var yrand = Math.random()*100;
+            buat_titik(imageData, xrand, yrand, 255,0,0);
+            ctx6.putImageData(imageData,0,0);
+        })
+
+    </script>
+</body>
+</html>
