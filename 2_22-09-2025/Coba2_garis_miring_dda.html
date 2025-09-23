@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video1_Teori</title>
+    <style>
+        *{
+            text-align: center;
+        }
+        #canvas6{
+            border: 5px solid black;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas6" width="500" height="500"></canvas>
+    
+
+    <script>
+        var cnv6 = document.querySelector("#canvas6");
+        var ctx6 = cnv6.getContext("2d");
+        var imageData = ctx6.getImageData(0,0,cnv6.width,cnv6.height);
+
+        function buat_titik(imageData, x, y, r, g, b){
+            var index = 4*(Math.ceil(x)+(Math.ceil(y)*cnv6.width));
+            imageData.data[index] = r;
+            imageData.data[index+1] = g;
+            imageData.data[index+2] = b;
+            imageData.data[index+3] = 255;
+        }
+
+        // garis lurus horizontal:
+        for (let i = 0; i < 150; i++) {
+            buat_titik(imageData, 100+i, 100, 255,0,0);
+        }
+        // garis lurus vertikal:
+        for (let i = 0; i < 150; i++) {
+            buat_titik(imageData, 100, 100+i, 255,0,0);
+        }
+        
+        // garis lurus miring digital:
+        for (let i = 0; i < 150; i++) {
+            buat_titik(imageData, 100+i, 100+i, 255,0,0);
+        }
+
+        // bikin garis miring ga perfek, PIXEL PASTI BIL BULAT
+        //x = x + sesuatu yg mungkin tidak bulat
+        //y = y + sesuatu yg mungkin tidak bulat
+        // selisih X lebih besar dari selisih Y ( garis agak mendatar, Tipe 2)
+        // selisih X lebih kecil  dari selisih Y ( garis agak mendatar, Tipe 1)
+        
+
+        // UTK TIPE 2 (agakt mendatar, M= + tp kecil)
+        // ada 2 pendekatan:   
+        // [a] x = x + 1, y = y + ? --> tiap jalan maka x+1, y+1 lalu x+1, y+?, x ditambah bil bul tp y tambah ?? floating point akan pembulatan
+        // [b] x = x + ?, y = y + 1 --> tiap jalan y ditambah 1, dicari x nya dimana
+        // kalo delta X lebih besar dari delta Y maka lebih baik pake [a] -> titik makin banyak = makin mulus
+        // kalo delta Y lebih besar dari delta X maka pake [b]
+        // kemiringan garis: m = delta X/delta y atau dx/dy ato (y2-y1)/(x2-x1)
+
+        // [1] CEK APAKAH (DX > DY)
+            // kalo dx>dy = jalan di sb. x / agak mendatar
+            // kalko dx<dy = jalan di sb.y / curam
+        function dda_line(imageData,x1,y1, x2,y2, r,g,b){
+            var dx = x2-x1; //bisa + or -
+            var dy = y2-y1; //bisa + or -
+
+            if(Math.abs(dx) > Math.abs(dy)){ //dibikin absolute supaya + dan - TIDAK MEMPENGARUHI
+
+                // jalan di x
+                if(x2 > x1){
+                    // jalan ke kanan
+                    var y=y1;
+                    for(var x=x1; x<x2;x++){
+                        y = y + dy/Math.abs(dx)   // 1/m
+                        buat_titik(imageData, x, y, r,g,b)
+                    }
+                } else { // x1>x2
+                    // jalan ke kiri
+                    var y=y1;
+                    for(var x=x1; x>x2;x--){
+                        y = y + dy/Math.abs(dx)   // 1/m
+                        buat_titik(imageData, x, y, r,g,b)
+                    }
+                }
+            } else {
+                if(y2 > y1){
+                    // jalan ke kanan
+                    var x=x1;
+                    for(var y=y1; y<y2;y++){
+                        x = x + dx/Math.abs(dy)   // m
+                        buat_titik(imageData, x, y, r,g,b)
+                    }
+                } else {
+                    // jalan ke kiri
+                    var x=x1;
+                    for(var y=y1; y>y2;y--){
+                        x = x + dx/Math.abs(dy)   // m
+                        buat_titik(imageData, x, y, r,g,b)
+                    }
+                }
+            }
+        }
+
+        dda_line(imageData, 0,0,100,100,0,255,0);
+        dda_line(imageData, 0,200,100,100,0,255,0);
+        dda_line(imageData, 300,0,100,100,0,255,0);
+        dda_line(imageData, 0,300,200,200,0,255,0);
+        dda_line(imageData, 300,200,220,330,2,2,255);
+
+        ctx6.putImageData(imageData,0,0);
+
+    </script>
+</body>
+</html>

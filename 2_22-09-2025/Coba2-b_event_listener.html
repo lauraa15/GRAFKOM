@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video1_Teori</title>
+    <style>
+        *{
+            text-align: center;
+        }
+        #canvas6{
+            border: 5px solid black;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas6" width="500" height="500"></canvas>
+    
+
+    <script>
+        var cnv6 = document.querySelector("#canvas6");
+        var ctx6 = cnv6.getContext("2d");
+        var imageData = ctx6.getImageData(0,0,cnv6.width,cnv6.height);
+
+        function buat_titik(imageData, x, y, r, g, b){
+            var index = 4*(Math.ceil(x)+(Math.ceil(y)*cnv6.width));
+            imageData.data[index] = r;
+            imageData.data[index+1] = g;
+            imageData.data[index+2] = b;
+            imageData.data[index+3] = 255;
+        }
+
+        //EVENT LISTENER
+        //mau menambah event listener kemana, event nya apa, functionnya apa
+        // misal event= click, function=alert langsung
+        cnv6.addEventListener('click',function(ev){
+            // alert('click');
+            console.log(ev);
+
+            // var x = ev.clientX; //scr HTML global
+            // var y = ev.clientY; //scr HTML global
+            // console.log(x,y); //utk mendapat koordinat
+
+            //scr CANVAS AJA/ mendapat titik di canvas
+            var rect = cnv6.getBoundingClientRect(ev)
+            var x = ev.clientX - rect.left; 
+            var y = ev.clientY - rect.top; 
+            console.log(x,y); //utk mendapat koordinat
+
+            // bikin titik sesuai kita nge-klik
+            buat_titik(imageData, x,y, 255,0,0);
+            ctx6.putImageData(imageData,0,0);
+        })
+        // misal event=click, function alert diluar
+        // function functionAlert(){
+        //     alert('click');
+        // }
+        // cnv6.addEventListener('click',functionAlert());
+        // cnv6.addEventListener('mousemove',function(ev){
+            
+        //     // alert('click');
+        //     console.log(ev);
+
+        //     // var x = ev.clientX; //scr HTML global
+        //     // var y = ev.clientY; //scr HTML global
+        //     // console.log(x,y); //utk mendapat koordinat
+
+        //     //scr CANVAS AJA/ mendapat titik di canvas
+        //     var rect = cnv6.getBoundingClientRect(ev)
+        //     var x = ev.clientX - rect.left; 
+        //     var y = ev.clientY - rect.top; 
+        //     console.log(x,y); //utk mendapat koordinat
+
+        //     // bikin titik sesuai kita nge-klik
+        //     buat_titik(imageData, x,y, 255,0,0);
+        //     ctx6.putImageData(imageData,0,0);
+        
+        // })
+
+        addEventListener('keydown', function(event){
+            console.log(event);
+            if(event.code == 'KeyA'){
+                alert('A');
+            }
+        })
+
+
+        ctx6.putImageData(imageData,0,0);
+
+    </script>
+</body>
+</html>

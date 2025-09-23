@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soal1-2372061_Laura</title>
+    <style>
+        *{
+            text-align: center;
+        }
+        canvas{
+            border: 5px solid black;
+        }
+    </style>
+    <script src="lib/grafika_lib.js"></script>
+</head>
+<body>
+    <canvas id="canvas1" width="500" height="500"></canvas>
+
+    <script>
+        var cnv;
+        cnv = document.querySelector("#canvas1");
+        // console.log(cnv);
+
+        var ctx = cnv.getContext("2d");
+
+        var imageData = ctx.getImageData(0,0,cnv.width, cnv.height);
+
+        for (var i=0; i<100;i++){
+            gambar_titik(imageData,10+i,200,255,0,0);
+        }
+
+        //utk miring kan bikinnya: x=x+1;y=y+??
+        //utk lingkaran kesamaannya adalah punya jarak sama dr titik manapun ke tengah (r/jari-jari)
+        // r**2 = x**2 + y**2
+        // y**2 = r**2 - x**2
+        // y = akar dari (r**2 - x**2)
+        // x = x+1
+        // di atas berlaku kalo dari 0,0
+        // kalo lingkaran geser dikit, maka x dan y nya ganti jadi (x-x1, y-y1)
+
+        gambar_lingkaran(imageData,200,200,100,255,0,0); //--> tidak efisien krn banyak for dan banyak math ceil/pow
+        //sehingga bisa pake sudutnya dengan rumus x=r.cos teta, y=r.sin teta
+
+        gbr_lingkaran(imageData,200,200,70,0,255,0)
+        // bisa jadi lebih efisien dgn pake 45 derajat aja tp dikali 8
+
+        gbr_elips(imageData,200,200,200,70,0,0,255)
+        //elips: x=xc + rx.cos(teta)
+        //elips: y=yc + ry.cos(teta)
+
+        ctx.putImageData(imageData,0,0);
+        
+    </script>
+</body>
+</html>
