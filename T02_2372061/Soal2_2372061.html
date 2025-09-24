@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soal1-2372061_Laura</title>
+    <style>
+        *{
+            text-align: center;
+        }
+        canvas{
+            border: 5px solid black;
+        }
+    </style>
+    <script src="lib.js"></script>
+    </head>
+<body>
+    <h1>2. Bikin garis dari 2 titik yang diklik</h1>
+    <canvas id="canvas2" width="600" height="600"></canvas>
+    <h2>2372061 - Laura Puspa Ameliana</h2>
+
+    <script>
+        var cnv = document.querySelector("#canvas2");
+        var ctx = cnv.getContext("2d");
+        var imageData = ctx.getImageData(0,0,cnv.width,cnv.height);
+
+        cnv.addEventListener('click',function(ev){
+            console.log("Titik di HTML:",ev.clientX,ev.clientY);
+
+            var rect = cnv.getBoundingClientRect(ev);
+            var x=ev.clientX - rect.left;
+            var y=ev.clientY - rect.top;
+            console.log("Titik Canvas:",x,y)
+
+            
+        })
+
+
+
+
+        ctx.putImageData(imageData,0,0)
+    </script>
+</body>
+</html>
