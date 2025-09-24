@@ -9,7 +9,7 @@
             text-align: center;
         }
         canvas{
-            border: 5px solid black;
+            outline: 5px solid black;
         }
     </style>
     <script src="lib.js"></script>
@@ -23,19 +23,32 @@
         var cnv = document.querySelector("#canvas2");
         var ctx = cnv.getContext("2d");
         var imageData = ctx.getImageData(0,0,cnv.width,cnv.height);
+        
+        var array_titik = [];
+        var i = 0;
+        // console.log(array_titik);
 
         cnv.addEventListener('click',function(ev){
-            console.log("Titik di HTML:",ev.clientX,ev.clientY);
+            // console.log("Titik di HTML:",ev.clientX,ev.clientY);
 
             var rect = cnv.getBoundingClientRect(ev);
-            var x=ev.clientX - rect.left;
-            var y=ev.clientY - rect.top;
-            console.log("Titik Canvas:",x,y)
-
-            
+            var x=Math.ceil(ev.clientX - rect.left);
+            var y=Math.ceil(ev.clientY - rect.top);
+            console.log("Titik Canvas:",x,y);
+            // titik(imageData,x,y,0,0,0);
+            // kotak_tengah(imageData,x,y,255,0,0);
+            array_titik[i]=[x,y];            
+            if(array_titik.length > 1){
+                garis_dda(imageData, array_titik[i-1][0],array_titik[i-1][1],x,y,0,10,10);
+                kotak_tengah(imageData,array_titik[i-1][0],array_titik[i-1][1],255,0,0);
+                kotak_tengah(imageData,x,y,255,0,0);
+            }
+            i+=1
+            ctx.putImageData(imageData,0,0)
         })
 
-
+        // kotak_tengah(imageData,100,100,255,0,0)
+        // titik(imageData,100,100,0,0,0)
 
 
         ctx.putImageData(imageData,0,0)
