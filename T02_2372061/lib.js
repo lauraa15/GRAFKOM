@@ -111,3 +111,16 @@ function kotak_tengah(imageData,x,y,r,g,b){
     }
 }
 
+
+// FUNCTION UTK NO 3
+function titik_kotak(imageData,x,y,r,g,b){
+    for (let a = 0; a < 2; a++) {
+        for (let b = 0; b < 2; b++) {
+            titik(imageData,x+a,y+b,r,g,b);
+            titik(imageData,x+a,y-b,r,g,b);
+            titik(imageData,x-a,y-b,r,g,b);
+            titik(imageData,x-a,y+b,r,g,b);
+        }    
+    }
+}
+

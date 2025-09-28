@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soal3-2372061_Laura</title>
+    <style>
+        *{
+            text-align: center;
+        }
+        canvas{
+            border-left: 2px solid black;
+            border-bottom: 2px solid black;
+        }
+        #inputkeun{
+            border-radius: 20px;
+            margin: 20px;
+        }
+
+        #inputkeun input{
+            width: 300px;
+        }
+    
+    </style>
+    <script src="lib.js"></script>
+    </head>
+<body>
+    <h1>3. Line Chart</h1>
+    <form id="inputkeun">
+        <input type="number" name="inputan" id="inputan">
+        <button type="submit"id="add">Add</button>
+    </form>
+    <canvas id="canvas3" width="300" height="300"></canvas>
+    <h2>2372061 - Laura Puspa Ameliana</h2>
+
+    <script>
+        var cnv = document.querySelector("#canvas3");
+        var ctx = cnv.getContext("2d");
+        var imageData = ctx.getImageData(0,0,cnv.width,cnv.height);
+
+        var array_titik = [];
+        var x_kiri = 50;
+        var x_jarak = 10;
+
+        const forms = document.getElementById('inputkeun');
+        forms.addEventListener('submit', function(ev){
+            ev.preventDefault();
+
+            var data = parseInt(document.getElementById('inputan').value);
+            var x = x_kiri+x_jarak*array_titik.length;
+            var y = cnv.height-data;
+            array_titik.push([x,y]);
+
+            bikin_chart();
+        })
+
+
+        function bikin_chart(){
+            ctx.clearRect(0, 0, cnv.width, cnv.height);
+            // var imageData = ctx.getImageData(0,0,cnv.width,cnv.height);
+
+            for (let a = 1; a < array_titik.length; a++) {
+                let [x1,y1] = array_titik[a-1];
+                let [x2,y2] = array_titik[a];
+
+                garis_dda(imageData,x1,y1,x2,y2,255,10,10);
+                
+            }
+
+            for (let [x, y] of array_titik) {
+                titik_kotak(imageData, x, y, 255, 0, 0);
+            }
+
+            ctx.putImageData(imageData,0,0)
+        }
+        // console.log(array_titik);
+        
+
+        // titik(imageData,x+100,100+50,255,0,0);
+        // ctx.putImageData(imageData,0,0);        
+    </script>
+</body>
+</html>
