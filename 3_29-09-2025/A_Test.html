@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="canvas.js"></script>
+    <style>
+        #canvas{
+            outline: 5px solid black;
+        }
+    </style>
+</head>
+<body>
+    <canvas width="500" height="500" id="canvas"></canvas>
+    <script>
+        var cnv = document.querySelector("#canvas");
+        var ctx = cnv.getContext('2d');
+        var imageData = ctx.getImageData(0,0,cnv.width,cnv.height);
+
+        gambar_lingkaran(imageData,200,200,200,255,0,0);
+        
+        lingkaran_polar(imageData,200,200,100,0,255,0);
+
+        oval(imageData,100,200,150,100,0,0,255);
+
+        naruto(imageData,200,200,250,0,25,10);
+
+        bunga(imageData,200,200,100,5,15,100,200);
+        
+        ctx.putImageData(imageData,0,0);
+    </script>
+</body>
+</html>
