@@ -17,10 +17,10 @@ function lingkaran_polar(imageData, xc, yc, rad, r,g,b){
 function mistletoe(imageData, xc, yc, rad, r,g,b){
     var beta = 0;
     for(var theta=0; theta<=Math.PI*2;theta+=1/rad){
-        var x = Math.round(xc + (rad*Math.cos(2*theta) +10*Math.sin(beta)*Math.cos(theta)));
-        var y = Math.round(yc + (rad*Math.cos(2*theta) +10*Math.sin(beta)*Math.sin(theta)));
+        var x = xc + (rad*Math.cos(2*theta) +10*Math.sin(beta))*Math.cos(theta);
+        var y = yc + (rad*Math.cos(2*theta) +10*Math.sin(beta))*Math.sin(theta);
         titik(imageData, x,y,r,g,b);
-        beta+=30/rad;
+        beta+=30/rad; 
     }
     lingkaran_polar(imageData, xc, yc, 20, 255,0,0);
 
