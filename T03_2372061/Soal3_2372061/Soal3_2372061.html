@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soal3_2372061</title>
+    <script src="lib.js"></script>
+    <style>
+        #canvas{
+            outline: 5px solid black;
+        }
+        *{
+            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        #form_input{
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>2. Mistletoe</h1>
+    
+    <canvas width="500" height="500" id="canvas"></canvas>
+
+    <h2>2372061 - Laura Puspa Ameliana</h2>
+
+    <script>
+        var cnv = document.querySelector('#canvas');
+        var ctx = cnv.getContext("2d");
+        var imageData = ctx.getImageData(0,0,cnv.width,cnv.height);
+
+        cnv.addEventListener('click',function(ev){
+            var rect = cnv.getBoundingClientRect(ev);
+            var x=Math.ceil(ev.clientX - rect.left);
+            var y=Math.ceil(ev.clientY - rect.top);
+            console.log("Titik Canvas:",x,y);
+
+            mistletoe(imageData, x, y, 100, 0,255,0);
+            ctx.putImageData(imageData,0,0);
+        })
+        
+
+        ctx.putImageData(imageData,0,0);
+    </script>
+</body>
+</html>
