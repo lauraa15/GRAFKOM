@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soal2_2372061</title>
+    <script src="lib.js"></script>
+    <style>
+        #canvas{
+            outline: 5px solid black;
+        }
+        *{
+            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        #form_input{
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>2. Bunga</h1>
+    
+    <canvas width="1000" height="500" id="canvas"></canvas>
+
+    <form id="form_input">
+        Jumlah Kelopak: 
+        <input type="number" min="2" step="1" name="input_type" id="input_type">
+        <button type="submit" id="btn_submit">Gambar Bunga</button>
+    </form>
+
+    <h2>2372061 - Laura Puspa Ameliana</h2>
+
+    <script>
+        var cnv = document.querySelector('#canvas');
+        var ctx = cnv.getContext("2d");
+        var imageData = ctx.getImageData(0,0,cnv.width,cnv.height);
+        
+        const forms = document.getElementById('form_input');
+        forms.addEventListener('submit',function (event){
+            event.preventDefault();
+
+            var data = document.getElementById('input_type').value;
+
+            bunga(imageData,
+                Math.round(Math.random()*1000),
+                Math.round(Math.random()*500),
+                100, 
+                data,
+                Math.round(Math.random()*255),
+                Math.round(Math.random()*255),
+                Math.round(Math.random()*255));
+        ctx.putImageData(imageData,0,0);
+
+        })
+
+        ctx.putImageData(imageData,0,0);
+    </script>
+</body>
+</html>
