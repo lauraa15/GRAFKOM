@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Flood Fill</title>
+    <style>
+        *{
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            text-align: center;
+        }
+        canvas{
+            border: 2px solid black;
+        }
+    </style>
+    <script src="lib.js"></script>
+</head>
+<body>
+    <canvas id="floodCanvas" width="500" height="500"></canvas>
+
+    <script>
+        var cnv = document.querySelector("#floodCanvas");
+        var ctx = cnv.getContext("2d");
+        var imageData = ctx.createImageData(cnv.width, cnv.height);
+
+        lingkaran_polar(imageData, 200, 200, 30, 255, 0, 0);
+        // kalo rekursif gabisa ukuran besar karena pake stack dan akan menggunakan resource RAM
+
+        // floodfill(imageData,cnv, 200, 200,  {r:0,g:0,b:0}, {r:0,g:0,b:255});
+
+        lingkaran_polar(imageData, 300, 300, 100, 0, 255, 0);
+        floodfillStack(imageData,cnv, 300, 300,  {r:0,g:0,b:0}, {r:255,g:0,b:0});
+
+        ctx.putImageData(imageData, 0, 0);
+    </script>
+</body>
+</html>
