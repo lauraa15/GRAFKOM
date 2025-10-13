@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soal 2 - 2372061</title>
+    <style>
+        *{
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            text-align: center;
+        }
+        canvas{
+            border: 2px solid black;
+        }
+        button{
+            border: 1px solid black;
+            width: 20px;
+            height: 20px;
+            padding: 10px;
+            border-spacing: 5px;
+        }
+        #me{
+            background-color: rgb(255, 0, 0);
+        }
+        #ji{
+            background-color: rgb(255, 166, 0);
+        }
+        #ku{
+            background-color: rgb(255, 255, 0);
+        }
+        #hi{
+            background-color: rgb(0, 255, 64);
+        }
+        #bi{
+            background-color: rgb(0, 0, 255);
+        }
+        #ni{
+            background-color: rgb(0, 255, 255);
+        }
+        #u{
+            background-color: rgb(255, 0, 255);
+        }
+    </style>
+    <script src="Soal2.js"></script>
+</head>
+<body>
+    <h1>2. Painting Flower</h1>
+    
+    <form id="form_input">
+        <canvas width="600" height="500" id="canvas"></canvas>
+
+        <br>
+        <button type="button" id="me" onclick="getWarna(this)"></button>
+        <button type="button" id="ji" onclick="getWarna(this)"></button>
+        <button type="button" id="ku" onclick="getWarna(this)"></button>
+        <button type="button" id="hi" onclick="getWarna(this)"></button>
+        <button type="button" id="bi" onclick="getWarna(this)"></button>
+        <button type="button" id="ni" onclick="getWarna(this)"></button>
+        <button type="button" id="u" onclick="getWarna(this)"></button>
+    </form>
+
+    <h2>2372061 - Laura Puspa Ameliana</h2>
+
+    <script>
+        var cnv = document.querySelector("#canvas");
+        var ctx = cnv.getContext("2d");
+        var imageData = ctx.createImageData(cnv.width, cnv.height);
+
+        bunga(imageData, 200, 300, 100, Math.round((Math.random())*10), 200,0,0);
+
+        var array_warna = [];
+
+        function getWarna(buttonId){
+            const Id = buttonId.id;
+            if(Id == 'u'){
+                warna = {r:255, g:0, b:255};
+            } else if (Id == "ni"){
+                warna = {r:0, g:255, b:255};
+            } else if(Id == 'bi'){
+                warna = {r:0, g:0, b:255};
+            } else if (Id == "hi"){
+                warna = {r:0, g:255, b:65};
+            } else if(Id == 'ku'){
+                warna = {r:255, g:255, b:0};
+            } else if (Id == "ji"){
+                warna = {r:255, g:160, b:0};
+            } else if (Id == "me"){
+                warna = {r:255, g:0, b:0};
+            }
+            // console.log("id dr button: ",warna)
+            console.log("value dr button: ",warna,warna.type)
+            array_warna.push(warna);
+            console.log(array_warna);
+            return warna;
+        }
+
+        cnv.addEventListener('click',function(ev){
+            var rect = cnv.getBoundingClientRect(ev);
+            var xa=Math.ceil(ev.clientX - rect.left);
+            var ya=Math.ceil(ev.clientY - rect.top);
+            console.log("Titik Canvas:",xa,ya);
+
+            // console.log(warna)
+            floodfillStack(imageData,cnv, xa, ya,{r:0, g:0, b:0}, array_warna[array_warna.length-1])
+            
+            // console.log(array_warna[array_warna.length-1]);
+            ctx.putImageData(imageData,0,0);
+        })
+
+        ctx.putImageData(imageData, 0, 0);
+    </script>
+</body>
+</html>
