@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soal 1 - 2372061</title>
+    <style>
+        *{
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            text-align: center;
+        }
+        canvas{
+            border: 2px solid black;
+        }
+    </style>
+    <script src="Soal1.js"></script>
+</head>
+<body>
+    <h1>1. Gambar seperti di soal </h1>
+    
+    <canvas width="600" height="500" id="canvas"></canvas>
+
+    <h2>2372061 - Laura Puspa Ameliana</h2>
+
+    <script>
+        var cnv = document.querySelector("#canvas");
+        var ctx = cnv.getContext("2d");
+        var imageData = ctx.createImageData(cnv.width, cnv.height);
+
+        lingkaran_polar(imageData, 100,100, 50, 255,0,0);
+        floodfillStack(imageData,cnv, 100, 100,  {r:0,g:0,b:0}, {r:255,g:0,b:0});
+
+        array_segi3 = [[400,50],[350,150],[450,150]];
+        polygon(imageData, array_segi3);
+        floodfillStack(imageData,cnv, 400, 100,  {r:0,g:0,b:0}, {r:0,g:255,b:0});
+
+        kotak(imageData, 200, 200, 100, 0,0,255);
+        floodfillStack(imageData,cnv, 250, 250,  {r:0,g:0,b:0}, {r:0,g:0,b:255});
+
+        bunga(imageData, 500, 250, 55, 6, 250,0,200);
+        floodfillStack(imageData,cnv,510,251,{r:0,g:0,b:0}, {r:250,g:0,b:200});
+        floodfillStack(imageData,cnv,495,251,{r:0,g:0,b:0}, {r:250,g:0,b:200});
+        floodfillStack(imageData,cnv,510,255,{r:0,g:0,b:0}, {r:250,g:0,b:200});
+        floodfillStack(imageData,cnv,490,255,{r:0,g:0,b:0}, {r:250,g:0,b:200});
+        floodfillStack(imageData,cnv,505,260,{r:0,g:0,b:0}, {r:250,g:0,b:200});
+        floodfillStack(imageData,cnv,495,260,{r:0,g:0,b:0}, {r:250,g:0,b:200});
+        floodfillStack(imageData,cnv,500,260,{r:0,g:0,b:0}, {r:250,g:0,b:200});
+        floodfillStack(imageData,cnv,500,240,{r:0,g:0,b:0}, {r:250,g:0,b:200});
+        floodfillStack(imageData,cnv,505,265,{r:0,g:0,b:0}, {r:250,g:0,b:200});
+        floodfillStack(imageData,cnv,490,245,{r:0,g:0,b:0}, {r:250,g:0,b:200});
+        floodfillStack(imageData,cnv,495,240,{r:0,g:0,b:0}, {r:250,g:0,b:200});
+        floodfillStack(imageData,cnv,505,240,{r:0,g:0,b:0}, {r:250,g:0,b:200});
+        floodfillStack(imageData,cnv,510,245,{r:0,g:0,b:0}, {r:250,g:0,b:200});
+        // floodfillStack(imageData,cnv,510,180,{r:0,g:0,b:0}, {r:250,g:0,b:150});
+        
+        // floodfillStack(imageData,cnv,505,262,{r:0,g:0,b:0}, {r:250,g:0,b:150});
+
+
+        ctx.putImageData(imageData, 0, 0);
+    </script>
+</body>
+</html>
