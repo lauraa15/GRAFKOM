@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soal 3 - 2372061</title>
+    <style>
+        *{
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            text-align: center;
+        }
+        canvas{
+            border: 2px solid black;
+        }
+    </style>
+    <script src="Soal3.js"></script>
+</head>
+<body>
+    <h1>3. Random Triangular Kaleidoscope </h1>
+    
+    <form id="form_input">
+        <canvas width="600" height="500" id="canvas"></canvas>
+    </form>
+    <h2>2372061 - Laura Puspa Ameliana</h2>
+
+    <script>
+        var cnv = document.querySelector("#canvas");
+        var ctx = cnv.getContext("2d");
+        var imageData = ctx.createImageData(cnv.width, cnv.height);
+
+        var array_titik =[];
+        var titik_pusat;
+
+        cnv.addEventListener('click',function(ev){
+            var rect = cnv.getBoundingClientRect(ev);
+            var xa=Math.ceil(ev.clientX - rect.left);
+            var ya=Math.ceil(ev.clientY - rect.top);
+            console.log("Titik Canvas:",xa,ya);
+            
+            array_titik.push([xa,ya]);
+            console.log(array_titik)
+            
+            var len = array_titik.length;
+            
+            if (len==1){
+                titik(imageData,xa,ya,255,0,0);
+            } else if (len == 2){
+                garis_dda(imageData, array_titik[0][0],array_titik[0][1], xa,ya, 255,0,0);
+            } else if(len >= 3){
+                var [tengahX, tengahY]=[0,0]
+                var array_segi3 = [array_titik[len-3], array_titik[len-2], array_titik[len-1]];
+                var warna = randomRGB();
+
+                polygon(imageData, array_segi3);
+
+                [tengahX, tengahY]=tengah_segi3(array_segi3);
+
+                floodfillStack(imageData,cnv, tengahX, tengahY, {r:0, g:0, b:0},warna)
+            } 
+            // else if(len > 3){
+            //     var array_segi3 = [array_titik[len-2], array_titik[len-1], [xa,ya]]
+            //     var warna = randomRGB();
+
+            //     polygon(imageData, array_segi3);
+
+            //     var [tengahX, tengahY]=tengah_segi3(array_segi3);
+
+            //     floodfillStack(imageData,cnv, tengahX, tengahY, {r:0, g:0, b:0},warna)
+
+            // }
+            ctx.putImageData(imageData, 0, 0);
+        })
+
+
+        ctx.putImageData(imageData, 0, 0);
+    </script>
+</body>
+</html>
