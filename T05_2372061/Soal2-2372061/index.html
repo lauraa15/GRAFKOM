@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soal 2 - 2372061</title>
+    <style>
+        *{
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            text-align: center;
+        }
+        canvas{
+            border: 2px solid black;
+        }
+    </style>
+    <script src="lib.js"></script>
+</head>
+<body>
+    <h1>2. Sistem Planet dan Bulan</h1>
+    
+    <canvas width="600" height="500" id="canvas"></canvas>
+
+    <h2>2372061 - Laura Puspa Ameliana</h2>
+
+    <script>
+        var cnv = document.querySelector("#canvas");
+        var ctx = cnv.getContext("2d");
+        var imageData = ctx.createImageData(cnv.width, cnv.height);
+
+
+        ctx.putImageData(imageData, 0, 0);
+    </script>
+</body>
+</html>
