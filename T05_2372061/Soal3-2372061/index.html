@@ -27,6 +27,98 @@
         var ctx = cnv.getContext("2d");
         var imageData = ctx.createImageData(cnv.width, cnv.height);
 
+        var prey = [];
+        var predator = [];
+
+        // bikin si prey
+        for(var i=0; i<25; i++){
+            var new_prey = {x: Math.random()*cnv.width, y: Math.random()*cnv.height, warna: {r: 0, g:255, b:255}};
+            prey.push(new_prey);
+        }
+
+        // bikin si predator
+        for(var i=0; i<10; i++){
+            var new_predator = {x: Math.random()*cnv.width, y: Math.random()*cnv.height, warna: {r: 255, g:0, b:0}};
+            predator.push(new_predator);
+        }
+
+
+        function frame(){
+            var imageData = ctx.createImageData(cnv.width, cnv.height);
+            ctx.clearRect(0,0,cnv.width,cnv.height);
+
+            for (var i=0; i<prey.length;i++){
+                var preyi = prey[i];
+
+                preyi = translate_point(prey[i], { 
+                    x: (Math.random() - 0.5) * 4, 
+                    y: (Math.random() - 0.5) * 4 
+                });
+
+                if (preyi.x < 5) {preyi.x = 5;}
+                if (preyi.x > cnv.width - 5) {preyi.x = cnv.width - 5;}
+                if (preyi.y < 5) {preyi.y = 5;}
+                if (preyi.y > cnv.height - 5) {preyi.y = cnv.height - 5;}
+                
+                prey[i] = preyi;
+
+                lingkaran_polar(imageData, preyi.x, preyi.y, 10, preyi.warna.r, preyi.warna.g, preyi.warna.b);
+                floodfillStack(imageData, cnv, preyi.x, preyi.y, { r: 0, g: 0, b: 0 }, preyi.warna);
+
+            }
+
+            // predator
+            for (var i=0; i<predator.length; i++){
+                var predi = predator[i];
+
+                //berjalan kalo prey nya masih ada
+                if(prey.length > 0){
+                    var terdekat = null;
+                    var minJarak = Infinity;
+
+                    for(var l=0; l<prey.length; l++){
+                        var jrk = jarak(predi, prey[l]);
+                        if(jrk < minJarak){
+                            minJarak = jrk;
+                            terdekat = prey[l];
+                        }
+                    }
+
+                    if (terdekat != null){
+                        var arahX = terdekat.x - predi.x;
+                        var arahY = terdekat.y - predi.y;
+
+                        var pjg = Math.sqrt(arahX**2 + arahY**2);
+
+                        if(pjg > 0){
+                            predi = translate_point(predi, { 
+                                x: (arahX / pjg) * 1.5, 
+                                y: (arahY / pjg) * 1.5 
+                            });
+                        }
+
+                        if (minJarak < 8){ //dimakan
+                            prey = prey.filter(p => p !== terdekat);
+                        }
+                    }
+                    predator[i] = predi;
+                    
+                    lingkaran_polar(imageData, predi.x, predi.y, 20, predi.warna.r, predi.warna.g, predi.warna.b);
+                    floodfillStack(imageData, cnv, predi.x, predi.y, { r: 0, g: 0, b: 0 }, predi.warna);
+
+                }
+
+            }
+            ctx.putImageData(imageData, 0, 0);
+
+            if (prey.length > 0) {
+                requestAnimationFrame(frame);
+            } else {
+                return;
+            }
+        }
+
+        frame();
 
         ctx.putImageData(imageData, 0, 0);
     </script>

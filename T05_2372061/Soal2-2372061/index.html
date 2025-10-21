@@ -18,15 +18,53 @@
 <body>
     <h1>2. Sistem Planet dan Bulan</h1>
     
-    <canvas width="600" height="500" id="canvas"></canvas>
+    <canvas width="500 " height="500   " id="canvas"></canvas>
 
     <h2>2372061 - Laura Puspa Ameliana</h2>
 
     <script>
         var cnv = document.querySelector("#canvas");
         var ctx = cnv.getContext("2d");
-        var imageData = ctx.createImageData(cnv.width, cnv.height);
+        // var imageData = ctx.createImageData(cnv.width, cnv.height);
 
+        var cx = cnv.width / 2;
+        var cy = cnv.height / 2;
+
+
+        var t = 0;
+
+        function frame() {
+            var imageData = ctx.createImageData(cnv.width, cnv.height);
+            ctx.clearRect(0, 0, cnv.width, cnv.height);
+            
+            lingkaran_polar(imageData, cx, cy, 20, 255,255,0);
+
+            var arr_planet = [
+                { warna: {r:255, g:0, b:0}, jarak_planet: 50, jarak_bulan:25, rad: 10, kecepatan: 0.03 },
+                { warna: {r:0, g:255, b:0}, jarak_planet: 100, jarak_bulan:20, rad: 13, kecepatan: 0.02 },
+                { warna: {r:0, g:0, b:255}, jarak_planet: 200, jarak_bulan:30, rad: 15, kecepatan: 0.01 }
+            ];
+
+            for(var i=0; i<arr_planet.length; i++){
+                var p = arr_planet[i];
+                var [px, py] = rotate_fp(p.jarak_planet, 0, t * p.kecepatan);
+                var planet_x = cx + px;
+                var planet_y = cy + py;
+
+                lingkaran_polar(imageData, planet_x, planet_y, p.rad, p.warna.r, p.warna.g, p.warna.b);
+
+                // rotate bulan ke planet
+                var [bx, by] = rotate_fp(p.jarak_bulan, 0, t * (p.kecepatan * 4));
+                lingkaran_polar(imageData,planet_x+bx, planet_y+by, 4, 128,128,128);
+
+            }
+            ctx.putImageData(imageData, 0, 0);
+
+            t += 0.05;
+            requestAnimationFrame(frame);
+        }
+
+        frame();
 
         ctx.putImageData(imageData, 0, 0);
     </script>

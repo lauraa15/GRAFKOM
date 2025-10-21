@@ -30,31 +30,33 @@
         var point_array = [{ x: 100, y: 100 }, { x: 150, y: 150 }, { x: 50, y: 150 }];
         polygon(imageData, point_array, 255, 0, 0); //MERAH
 
-        point_array2 = [];
-        point_array2.push(translasi(point_array[0], { x: 150, y: 0 }));
-        point_array2.push(translasi(point_array[1], { x: 150, y: 0 }));
-        point_array2.push(translasi(point_array[2], { x: 150, y: 0 }));
-        polygon(imageData, point_array2, 25, 15, 200); //BIRU
+        // point_array2 = [];
+        // point_array2.push(translasi(point_array[0], { x: 150, y: 0 }));
+        // point_array2.push(translasi(point_array[1], { x: 150, y: 0 }));
+        // point_array2.push(translasi(point_array[2], { x: 150, y: 0 }));
+        // polygon(imageData, point_array2, 25, 15, 200); //BIRU
 
-        point_array3 = [];
-        point_array3.push(skalar(point_array[0], { x: 3, y: 1.5 }))
-        point_array3.push(skalar(point_array[1], { x: 3, y: 1.5 }))
-        point_array3.push(skalar(point_array[2], { x: 3, y: 1.5 }))
-        polygon(imageData, point_array3, 55, 255, 10); //ijo
+        // point_array3 = [];
+        // point_array3.push(skalar(point_array[0], { x: 3, y: 1.5 }))
+        // point_array3.push(skalar(point_array[1], { x: 3, y: 1.5 }))
+        // point_array3.push(skalar(point_array[2], { x: 3, y: 1.5 }))
+        // polygon(imageData, point_array3, 55, 255, 10); //ijo
 
 
-        point_array4 = [];
-        point_array4.push(rotasi(point_array2[0], Math.PI / 2))
-        point_array4.push(rotasi(point_array2[1], Math.PI / 2))
-        point_array4.push(rotasi(point_array2[2], Math.PI / 2))
-        polygon(imageData, point_array4, 55, 255, 255);
+        // point_array4 = [];
+        // point_array4.push(rotasi(point_array2[0], Math.PI / 2))
+        // point_array4.push(rotasi(point_array2[1], Math.PI / 2))
+        // point_array4.push(rotasi(point_array2[2], Math.PI / 2))
+        // polygon(imageData, point_array4, 55, 255, 255);
 
 
         point_array5 = [];
-        point_array5.push(rotasi_fp(point_array[0], { x: 100, y: 100 }, Math.PI / 4))
-        point_array5.push(rotasi_fp(point_array[1], { x: 100, y: 100 }, Math.PI / 4))
-        point_array5.push(rotasi_fp(point_array[2], { x: 100, y: 100 }, Math.PI / 4))
-        console.log("point array6", point_array5);
+        point_array5.push(rotasi_fp(point_array[0], { x: 100, y: 100 }, Math.PI / 2))
+        point_array5.push(rotasi_fp(point_array[1], { x: 100, y: 100 }, Math.PI / 2))
+        point_array5.push(rotasi_fp(point_array[2], { x: 100, y: 100 }, Math.PI / 2))
+        polygon(imageData, point_array5, 255, 0, 255);
+
+        console.log("point array5", point_array5);
 
         // polygon(imageData, point_array5,55,105,0);
         point_array6 = [];
