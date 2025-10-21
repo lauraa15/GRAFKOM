@@ -13,63 +13,68 @@ function lingkaran_polar(imageData, xc, yc, rad, r,g,b){
         titik(imageData, x,y,r,g,b);
     }
 }
-function polar_circle2(imageData){
+
+function bola_random(imageData, n, rad, red,green,blue){
     var array_bola = [];
-    for(var a=0; a<20; a++){
-        var xr = 10+Math.ceil(Math.random()*480);
-        var yr = 10+Math.ceil(Math.random()*480);
-        lingkaran_polar(imageData, xr, yr,10,255,150,0);
-        floodfillStack(imageData, cnv, xr, yr, {r:0, g:0, b:0},{r:255,g:150,b:0})
+    for (var i=0; i<n; i++){
+        var xr = rad + Math.random() * (cnv.width - 2*rad);
+        var yr = rad + Math.random() * (cnv.height - 2*rad);
 
-        for(var a=0; (xr+a < 500 && yr+a < 500);a++){
-            move=translasi({x:xr,y:yr},{x:a,y:a});
-            lingkaran_polar(imageData, move.x, move.y,10,255,150,0);
-            floodfillStack(imageData, cnv, move.x, move.y, {r:0, g:0, b:0},{r:255,g:150,b:0})
-        }
+        lingkaran_polar(imageData, xr, yr,rad,red,green,blue);
+        floodfillStack(imageData, cnv, xr, yr, {r:0, g:0, b:0},{r:red, g:green, b:blue})
 
-
-        // point_array2 = [];
-        // point_array2.push(translasi(point_array[0], { x: 150, y: 0 }));
-        // point_array2.push(translasi(point_array[1], { x: 150, y: 0 }));
-        // point_array2.push(translasi(point_array[2], { x: 150, y: 0 }));
-        // polygon(imageData, point_array2, 25, 15, 200); //BIRU
-
-        // gerak({xr,yr})
+        var kx = Math.round(Math.random()*10);
+        var ky = Math.round(Math.random()*10);
+        
+        array_bola.push({x:xr, y:yr, kec_x: kx, kec_y:ky, warna: {r:red, g:green, b:blue}});
     }
-    // }
-    // for(var a=0; a<20; a++){
-    //     var xr = 10+Math.ceil(Math.random()*480);
-    //     var yr = 10+Math.ceil(Math.random()*480);
-    //     lingkaran_polar(imageData, xr, yr,10,10,255,0);
-    //     floodfillStack(imageData, cnv, xr, yr, {r:0, g:0, b:0},{r:10,g:255,b:0})
-    // }for(var a=0; a<20; a++){
-    //     var xr = 10+Math.ceil(Math.random()*480);
-    //     var yr = 10+Math.ceil(Math.random()*480);
-    //     lingkaran_polar(imageData, xr, yr,10,10,150,255);
-    //     floodfillStack(imageData, cnv, xr, yr, {r:0, g:0, b:0},{r:10,g:150,b:255})
-    // }
     return array_bola;
+}
+
+function bola_gerak(array_bola, rad){
+    
+    function frame(){
+        ctx.clearRect(0, 0, cnv.width, cnv.height);
+        
+        imageData = ctx.getImageData(0, 0, cnv.width, cnv.height);
+        
+        for (var i=0; i<array_bola.length; i++){
+
+            var bola = array_bola[i];
+        
+            var bergerak = translasi(bola, {x: bola.kec_x, y:bola.kec_y});
+        
+            bola.x = bergerak.x;
+            bola.y = bergerak.y;
+        
+            // buat pantulan
+            if(bola.x + rad > cnv.width || bola.x - rad < 0){
+                bola.kec_x *= -1;
+            }
+            if(bola.y + rad > cnv.height || bola.y - rad < 0){
+                bola.kec_y *= -1;
+            }
+        
+            lingkaran_polar(imageData, bola.x, bola.y, rad, bola.warna.r, bola.warna.g, bola.warna.b);
+            floodfillStack(imageData, cnv, Math.floor(bola.x), Math.floor(bola.y), {r:0, g:0, b:0}, bola.warna)
+        }
+        ctx.putImageData(imageData,0,0);
+        requestAnimationFrame(frame);
+    }
+    frame();
 }
 
 function translasi(titik_lama, jarak){
     var x_baru = titik_lama.x + jarak.x;
     var y_baru = titik_lama.y + jarak.y;
-
     return{x:x_baru, y:y_baru};
 }
 
 function skalar(titik_lama, sk){
     var x_baru = titik_lama.x*sk.x;
     var y_baru = titik_lama.y*sk.y;
-
     return{x:x_baru, y:y_baru};
 }
-
-// function gerak(titik_lama){
-//     for(var a=0; (titik_lama.x+a < 500 && titik_lama.y+a < 500);a++){
-//         titik_baru=translasi(titik_lama,{x:a,y:a});
-//     }
-// }
 
 
 function floodfillStack(imageData,cnv, x0, y0,  toFlood, color){

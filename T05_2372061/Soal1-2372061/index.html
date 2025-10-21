@@ -28,10 +28,18 @@
         var ctx = cnv.getContext("2d");
         var imageData = ctx.createImageData(cnv.width, cnv.height);
 
-        array_bola = polar_circle2(imageData);
-        
+        // array_bola = polar_circle2(imageData);
 
+        var bola_ijo = bola_random(imageData, 20, 10, 100,255,100);
+        var bola_biru = bola_random(imageData, 20, 10, 100,100,255);
+        var bola_oren = bola_random(imageData, 20, 10, 255,150,100);
+
+        var semua_bola = [...bola_ijo, ...bola_biru, ...bola_oren];
         ctx.putImageData(imageData, 0, 0);
+        
+        bola_gerak(semua_bola,10, 100);
+
+        // ctx.putImageData(imageData, 0, 0);
     </script>
 </body>
 </html>

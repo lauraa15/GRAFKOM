@@ -12,7 +12,6 @@ function skalar(titik_lama, sk){
     return{x:x_baru, y:y_baru};
 }
 
-
 function rotasi(titik_lama, sudut){
     var x_baru = titik_lama.x* Math.cos(sudut) - titik_lama.y * Math.sin(sudut);
     var y_baru = titik_lama.x* Math.sin(sudut) + titik_lama.y * Math.cos(sudut);
