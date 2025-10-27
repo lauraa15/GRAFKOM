@@ -66,78 +66,12 @@ function polygon(imageData, point_array, r,g,b){
 
 }
 
-
-function gambar_lingkaran(imageData, xc,yc,rad,r,g,b){
-    // x= akar(r**2 - (y-yc)**2) + xc
-    //(x-xc)**2 + (y-yc)**2 = r**2
-    for (var x=xc-rad;x<xc+rad;x++){
-        var y = yc + Math.sqrt(Math.pow(rad,2)-Math.pow((x-xc),2))
-        titik(imageData, x,y,r,g,b)
-        var y = yc - Math.sqrt(Math.pow(rad,2)-Math.pow((x-xc),2))
-        titik(imageData, x,y,r,g,b)
-    }
-    for(var x=xc-rad;x<xc+rad;x++){        
-        var y = yc + Math.sqrt(Math.pow(rad,2)-Math.pow((x-xc),2))
-        titik(imageData, y,x,r,g,b)
-        var y = yc - Math.sqrt(Math.pow(rad,2)-Math.pow((x-xc),2))
-        titik(imageData, y,x,r,g,b)
-    }
-}
-
 function lingkaran_polar(imageData, xc, yc, rad, r,g,b){
     for(var theta=0; theta<Math.PI*2; theta+=0.0001){
         var x = xc + (rad * Math.cos(theta));
         var y = yc + (rad * Math.sin(theta));
         titik(imageData, x,y,r,g,b);
     }
-}
-
-function oval(imageData, xc, yc, radiusY, radiusX, r,g,b){
-    for(var theta=0; theta<Math.PI*2; theta+=0.0001){
-        var x = xc + (radiusX * Math.cos(theta));
-        var y = yc + (radiusY * Math.sin(theta));
-        titik(imageData, x,y,r,g,b);
-    }
-}
-
-function naruto(imageData, xc, yc, rad, r,g,b){
-    for(var theta=0; theta<=Math.PI*6; theta+=0.0001){
-        rad=5*theta
-        var x = xc + (rad * Math.cos(theta));
-        var y = yc + (rad * Math.sin(theta));
-        titik(imageData, x,y,r,g,b);
-    }   
-}
-
-
-function bunga(imageData, xc, yc, rad, n, r,g,b){
-    for(var theta=0; theta<=Math.PI*2; theta+=0.001){
-        var x = xc + (rad * Math.cos(theta)*Math.cos(n*theta));
-        var y = yc + (rad*Math.cos(n*theta) * Math.sin(theta));
-        titik(imageData, x,y,r,g,b);
-    }   
-}
-
-function floodfill(imageData,cnv, x, y,  toFlood, color){
-    var index = 4*(Math.ceil(x)+(Math.ceil(y)*cnv.width));
-    var r1 = imageData.data[index];
-    var g1 = imageData.data[index+1];
-    var b1 = imageData.data[index+2];
-
-    if((toFlood.r == r1) && (toFlood.g == g1) && (toFlood.b == b1)){
-        imageData.data[index]   = color.r;
-        imageData.data[index+1] = color.g;
-        imageData.data[index+2] = color.b;
-        imageData.data[index+3] = 255;
-
-        floodfill(imageData,cnv, x+1, y,  toFlood, color);
-        floodfill(imageData,cnv, x, y+1,  toFlood, color);
-        
-        floodfill(imageData,cnv, x-1, y,  toFlood, color);
-        floodfill(imageData,cnv, x, y-1,  toFlood, color);
-    }
-
-
 }
 
 function floodfillStack(imageData,cnv, x0, y0,  toFlood, color){
@@ -173,27 +107,22 @@ function floodfillStack(imageData,cnv, x0, y0,  toFlood, color){
 
 }
 
-// FUNCTION UTK NOMOR 2
-function kotak_tengah(imageData,x,y,r,g,b){
-    for (let a = 0; a < 10; a++) {
-        for (let b = 0; b < 10; b++) {
-            titik(imageData,x+a,y+b,r,g,b);
-            titik(imageData,x+a,y-b,r,g,b);
-            titik(imageData,x-a,y-b,r,g,b);
-            titik(imageData,x-a,y+b,r,g,b);
+function kotakIsi(imageData,x,y,sisi,r,g,b){
+    for (let i = 0; i < sisi; i++) {
+        for (let j = 0; j < sisi; j++) {
+            titik(imageData,x+i,y+j,r,g,b);
+            titik(imageData,x+i,y-j,r,g,b);
+            titik(imageData,x-i,y-j,r,g,b);
+            titik(imageData,x-i,y+j,r,g,b);
         }    
     }
 }
 
-
-// FUNCTION UTK NO 3
-function titik_kotak(imageData,x,y,r,g,b){
-    for (let a = 0; a < 2; a++) {
-        for (let b = 0; b < 2; b++) {
-            titik(imageData,x+a,y+b,r,g,b);
-            titik(imageData,x+a,y-b,r,g,b);
-            titik(imageData,x-a,y-b,r,g,b);
-            titik(imageData,x-a,y+b,r,g,b);
-        }    
+function kotakKosong(imageData, x, y, sisi, r,g,b) {
+    for (let i = -(sisi/2); i <= (sisi/2); i++) {
+        titik(imageData, x + i, y - (sisi/2), r,g,b);
+        titik(imageData, x + i, y + (sisi/2), r,g,b);
+        titik(imageData, x - (sisi/2), y + i, r,g,b);
+        titik(imageData, x + (sisi/2), y + i, r,g,b);
     }
 }

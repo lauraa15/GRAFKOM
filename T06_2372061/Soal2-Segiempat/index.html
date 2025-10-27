@@ -5,19 +5,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Soal 2 - Animasi Segiempat</title>
     <script src="lib.js"></script>
+    <script src="transform.js"></script>
+    <script src="transformasi_matriks.js"></script>
+
+    <style>
+        *{
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            text-align: center;
+        }
+        canvas{
+            border: 2px solid black;
+        }
+    </style>
 </head>
 <body>
-    <h1>3. Animasi Segiempat</h1>
+    <h1>2. Animasi Segiempat</h1>
     
     <canvas width="600" height="500" id="canvas"></canvas>
 
     <h2>2372061 - Laura Puspa Ameliana</h2>
+
     <script>
         var cnv = document.querySelector("#canvas");
         var ctx = cnv.getContext('2d');
         var imageData = ctx.getImageData(0,0,cnv.width,cnv.height);
 
+        //buat gel sin
+        var amplitudo = 100; //ampli = ketinggian/kerendahan gelombang
+        var freq = 0.015; //frek = kecepatan gel, makin gede makin cepet + rapet
+        
+        //buat kotak
+        var pjg_kotak = 50;
+        var kec_kotak = 2;
+        var x0 = 50;
+        var y0 = cnv.height/2;
+        // kotakKosong(imageData,x0,y0,pjg_kotak,2,2,255)
+        
+        var t = 0;
+        var gel = [];
+        
+        function draw(){
+            ctx.clearRect(0,0,cnv.width, cnv.height);
+            imageData = ctx.getImageData(0, 0, cnv.width, cnv.height);
+            garis_dda(imageData, 0,250, 600,250, 0,0,0);
 
+            //garis yg udh dilewatin
+            for(var i=1; i<gel.length; i++){
+                garis_dda(imageData, gel[i-1].x, gel[i-1].y, gel[i].x, gel[i].y,255, 0, 0);
+            }
+
+            x0 += kec_kotak;
+
+            // grafik sin -> y= (amplitudo) x sin(Frek x X)
+            y0 = 250 + amplitudo * Math.sin(freq*x0);
+
+            gel.push({x: x0, y: y0});
+
+            var jalan = createTranslation(x0, y0);
+            var puter = createRotation(t * 0.05);
+            var m_final= multiplyMatrix(jalan,puter);
+
+            var titik_kotak = [
+                {x:-pjg_kotak/2, y:-pjg_kotak/2},
+                {x:pjg_kotak/2, y:-pjg_kotak/2},
+                {x:pjg_kotak/2, y:pjg_kotak/2},
+                {x:-pjg_kotak/2, y:pjg_kotak/2},
+            ];
+
+            var kotak_baru = transform_array(titik_kotak,m_final);
+
+            polygon(imageData, kotak_baru, 0, 0, 255);
+            ctx.putImageData(imageData, 0, 0);
+            t += 1;
+            
+            requestAnimationFrame(draw);
+        }
+        draw();
 
 
         ctx.putImageData(imageData,0,0);

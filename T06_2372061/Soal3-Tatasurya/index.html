@@ -5,11 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Soal 3 - Tata Surya</title>
     <script src="lib.js"></script>
+    <style>
+        *{
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            text-align: center;
+        }
+        canvas{
+            /* background-color: black; */
+            border: 2px solid black;
+        }
+        button{
+            width: 100px;
+            height: 25px;
+            border-size: 10px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <h1>3. Tata Surya</h1>
     
     <canvas width="600" height="500" id="canvas"></canvas>
+    <div>
+        <button id="play" type="button">Play</button>
+        <button id="pause" type="button">Pause</button>
+        <button id="reset" type="button">Reset</button>
+    </div>
 
     <h2>2372061 - Laura Puspa Ameliana</h2>
 
@@ -18,9 +39,59 @@
         var ctx = cnv.getContext('2d');
         var imageData = ctx.getImageData(0,0,cnv.width,cnv.height);
 
+        var jalan = false;
+        document.getElementById("play").onclick = () => {
+            jalan = true;
+            animate();
+        };
+        document.getElementById("pause").onclick = () => jalan = false;
+        document.getElementById("reset").onclick = () => {
+            jalan = false;
+            planet_init();
+            draw();
+        };
 
+        var tengah = {x: cnv.width, y:cnv.height}
 
+        var matahari, planet, bulan, timer;
+        function planet_init(){
+            matahari = {x: tengah.x, y:tengah.y, size: 25, color:{r:255, g:255, b:0}}
 
+            planet = [
+                { rad: 60,  size: 6,  angle: 0, kec: 0.02, color:{r:255, g:0, b:0}, bulan:{rad: 18,size: 4,angle: 0,kec: 0.05,color: { r: 211, g: 211, b: 211 }}},
+                { rad: 90,  size: 10, angle: 0, kec: 0.015, color:{r:0, g:255, b:0}, bulan:{rad: 18,size: 4,angle: 0,kec: 0.05,color: { r: 211, g: 211, b: 211 }}},
+                { rad: 130, size: 12, angle: 0, kec: 0.010, color:{r:0, g:0, b:255}, bulan:{rad: 18,size: 4,angle: 0,kec: 0.05,color: { r: 211, g: 211, b: 211 }}},
+                { rad: 180, size: 16, angle: 0, kec: 0.008, color:{r:100, g:100, b:100}, bulan:{rad: 18,size: 4,angle: 0,kec: 0.05,color: { r: 211, g: 211, b: 211 }}},
+                { rad: 230, size: 20, angle: 0, kec: 0.006, color:{r:0, g:100, b:100}, bulan:{rad: 18,size: 4,angle: 0,kec: 0.05,color: { r: 211, g: 211, b: 211 }}},
+            ]
+
+            bulan = {rad: 25, size:4, angle:0, kec: 0.05, color:{r:255, g:255, b:255}}
+        }
+        
+        function update_planet() {
+            if (jalan != true) return;
+
+            for (var i=0; i<planet.length; i++){
+                planet.angle += planet.kec;
+                planet.moon.angle += planet.moon.kec;
+            }
+            
+        }
+        // planet_init();
+
+        function draw(){
+            ctx.clearRect(0,0,cnv.width,cnv.height);
+            imageData = ctx.getImageData(0, 0, cnv.width, cnv.height);
+
+            lingkaran_polar(imageData, matahari.x, matahari.y, matahari.size, matahari.color.r, matahari.color.g, matahari.color.b);
+            
+            for (var i=0; i<planet.length; i++){
+                lingkaran_polar(imageData, tengah.x, tengah.y, planet.rad, 100, 100, 100);
+
+            }
+            // polygon_lingkaran(imageData, point_array, r,g,b)
+        }
+        // maaff ko ga beres cape + gbs mikirr
         ctx.putImageData(imageData,0,0);
     </script>
 </body>
