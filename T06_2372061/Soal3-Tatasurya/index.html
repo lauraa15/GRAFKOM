@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soal 3 - Tata Surya</title>
+    <script src="lib.js"></script>
+</head>
+<body>
+    <h1>3. Tata Surya</h1>
+    
+    <canvas width="600" height="500" id="canvas"></canvas>
+
+    <h2>2372061 - Laura Puspa Ameliana</h2>
+
+    <script>
+        var cnv = document.querySelector("#canvas");
+        var ctx = cnv.getContext('2d');
+        var imageData = ctx.getImageData(0,0,cnv.width,cnv.height);
+
+
+
+
+        ctx.putImageData(imageData,0,0);
+    </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soal 1 - Poligon</title>
+    <script src="lib.js"></script>
+    <script src="transform.js"></script>
+    <script src="transformasi_matriks.js"></script>
+    <style>
+        *{
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            text-align: center;
+        }
+        canvas{
+            border: 2px solid black;
+        }
+        #red{
+            color: red;
+        }
+        #green{
+            color: lime;
+        }
+    </style>
+</head>
+<body>
+    <h1>1. Transformasi Berurutan pada Poligon</h1>
+    
+    <canvas width="600" height="500" id="canvas"></canvas>
+    
+    <p id="red">Merah: Posisi Awal</p>
+    <p id="green">Hijau: Posisi Final</p>
+
+    <h2>2372061 - Laura Puspa Ameliana</h2>
+
+    <script>
+        var cnv = document.querySelector("#canvas");
+        var ctx = cnv.getContext('2d');
+        var imageData = ctx.getImageData(0,0,cnv.width,cnv.height);
+
+        //polygon pas awal
+        var arrPolygon1 = [{x: 75, y:60}, {x:20, y:100}, {x: 40, y:150}, {x: 120, y: 180}, {x: 170, y:140}, {x: 140, y: 60}];
+        polygon(imageData, arrPolygon1, 255,0,0);
+
+        console.log("translasi: (150, 10) \nrotasi: 90 derajat \nscaling: (1.5,1.5)")
+        var m1 = createTranslation(150,10);
+        var m2 = createRotation(Math.PI/4);
+        var m3 = createScale(1.5,1.5);
+        var M_final;
+        var hasil;
+        M_final = multiplyMatrix(m3,m2);
+        M_final = multiplyMatrix(M_final,m1);
+        hasil = transform_array(arrPolygon1,M_final);
+        polygon(imageData, hasil, 0,255,0);
+
+        ctx.putImageData(imageData,0,0);
+    </script>
+</body>
+</html>
