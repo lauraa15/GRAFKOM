@@ -4,11 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transformasi</title>
+    <title>Animasi 3D</title>
     <style>
         * {
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
             text-align: center;
+            background-color: pink;
         }
 
         canvas {
@@ -28,53 +29,6 @@
         var ctx = cnv.getContext("2d");
         var imageData = ctx.createImageData(cnv.width, cnv.height);
 
-        titik(imageData, 100, 100, 255,0,0);
-
-        var point_array = [{x:200,y:100},{x:100,y:100},{x:150,y:50}];
-        polygon(imageData, point_array, 255,0,0);
-
-        var m = rotation_fp(150,150, Math.PI/8);
-        var p_array2 = transform_array(point_array,m);
-        polygon(imageData, p_array2, 100,100,255)
-
-        var m = multiplyMatrix(m,m);
-        var p_array2 = transform_array(point_array,m);
-        polygon(imageData, p_array2, 100,255,1)
-
-        var m = createTranslation(10,0);
-        var p_array2 = transform_array(point_array,m);
-        polygon(imageData, p_array2, 100,255,200)
-        // for(var i=0; i<20; i++){
-        //     var p_array2 = transform_array(p_array2,m);
-        //     polygon(imageData, p_array2, 100,255,200);
-        // }
-
-        var timer = 0;
-        function draw(){
-            for (var a = 0; a<imageData.data.length;a++){
-                // imageData.data[i]=0;
-            }
-            // timer +=1;
-            if(timer > 10){
-                ctx.clearRect(0,0,cnv.width,cnv.height);
-
-                imageData = ctx.getImageData(0,0,cnv.width,cnv.height);
-                
-                var t = createTranslation(10,0);
-                var r = rotation_fp(p_array2[0].x,p_array2[0].y,0.25); //utk berputar
-        
-                m = multiplyMatrix(t,r);
-
-                p_array2 = transform_array(p_array2,m);
-                polygon(imageData, p_array2, 100,255,200);
-                
-                
-                ctx.putImageData(imageData, 0, 0);
-                timer=0
-            }
-            requestAnimationFrame(draw);
-        }
-        draw();
     
         // setInterval(draw,1000);
         
